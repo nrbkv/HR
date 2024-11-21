@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">HR Management</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/payroll">View Payroll</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="payroll-section">
+            <h1>Payroll Calculation</h1>
+
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Total Hours</th>
+                        <th>Hourly Rate</th>
+                        <th>Total Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payroll in payroll_data %}
+                    <tr>
+                        <td>{{ payroll[0] }}</td>
+                        <td>{{ payroll[2] }}</td>
+                        <td>${{ payroll[1] }}</td>
+                        <td>${{ payroll[2] * payroll[1] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Small Business HR Management System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

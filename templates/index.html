@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Management</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">HR Management</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/payroll">View Payroll</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="employee-section">
+            <h1>Employee Management</h1>
+
+            <div class="form-container">
+                <h2>Add New Employee</h2>
+                <form action="/add_employee" method="post">
+                    <input type="text" name="name" placeholder="Employee Name" required>
+                    <input type="text" name="position" placeholder="Position" required>
+                    <input type="number" name="hourly_rate" placeholder="Hourly Rate" required step="0.01">
+                    <button type="submit">Add Employee</button>
+                </form>
+            </div>
+
+            <h2>Employees List</h2>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Hourly Rate</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{ employee[1] }}</td>
+                        <td>{{ employee[2] }}</td>
+                        <td>${{ employee[3] }}</td>
+                        <td><a href="/employee/{{ employee[0] }}" class="details-link">View Details</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="form-container">
+                <h2>Record Attendance</h2>
+                <form action="/add_attendance" method="post">
+                    <select name="employee_id" required>
+                        <option value="" disabled selected>Select Employee</option>
+                        {% for employee in employees %}
+                        <option value="{{ employee[0] }}">{{ employee[1] }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="date" name="date" required>
+                    <input type="number" name="hours_worked" placeholder="Hours Worked" required step="0.01">
+                    <button type="submit">Record Attendance</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Small Business HR Management System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
